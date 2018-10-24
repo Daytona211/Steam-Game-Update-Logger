@@ -1,7 +1,8 @@
 function hitAPI() {}
 
+
 function main() {
-  fetch("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=440&count=3&maxlength=300&format=json").then(function (response) {
+  fetch("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=4000&count=3&maxlength=300&format=json").then(function (response) {
     response.json().then(function (r) {
       console.log(r.appnews);
     })
