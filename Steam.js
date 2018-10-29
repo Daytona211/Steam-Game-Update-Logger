@@ -1,13 +1,41 @@
-function hitAPI() {}
+function addToList(item, list) {
+  var li = document.createElement("li");
+  var p = document.createElement("p");
+  lookForImg(item.contents, li);
+  p.innerHTML = (item.contents);
+  console.log(p);
+  li.appendChild(p);
+  list.appendChild(li);
+}
 
+function lookForImg(inputString, li){
+  var tokens = inputString.split(" ");
+  var links;
+  for(var i = 0; i < tokens.length; i++){
+    if(tokens[i].includes(".jpg") || tokens[i].includes(".png")){
+      var image = document.createElement("img");
+      image.src = tokens[i];
+      image.width = "500";
+      li.appendChild(image);
+      inputString.replace(tokens[i], "");
+    }
+      
+  }
+  
+}
 
 function main() {
-  fetch("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=4000&count=3&maxlength=300&format=json").then(function (response) {
+  var list = document.getElementById("newsOutput");
+  fetch("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=4000&count=3&maxlength=500&format=json").then(function (response) {
     response.json().then(function (r) {
-      console.log(r.appnews);
+      console.log(r);
+      arrOfContent = r.appnews.newsitems;
+      for (var i = 0; i < arrOfContent.length; i++) {
+        addToList(arrOfContent[i], list);
+      }
     })
-
   })
+  // console.log(list);
 
 }
 main();
