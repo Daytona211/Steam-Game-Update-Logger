@@ -1,12 +1,32 @@
-function addToList(item, list) {
+function addToList(item, list, liCounter) {
   var li = document.createElement("li");
+  li.id = "ListItem" + liCounter;
   var p = document.createElement("p");
+  var but = document.createElement("button");
+  but.style.width = "30px";
+  but.style.height = "30px";  
+  but.addEventListener("click", function(e){
+    spoilerClicked(e);
+  });
+  li.appendChild(but);
   lookForImg(item.contents, li);
   p.innerHTML = (item.contents);
   console.log(p);
   li.appendChild(p);
+  console.log(li);
   list.appendChild(li);
 }
+
+function spoilerClicked(event){
+  listOfElements = event.target.parentElement.childNodes;
+  for(var i = 1; i < listOfElements.length; i++){
+    if(listOfElements[i].style.display != "none")
+      listOfElements[i].style.display = "none";
+    else
+      listOfElements[i].style.display = "block";
+  }
+}
+
 
 function lookForImg(inputString, li){
   var tokens = inputString.split(" ");
@@ -18,24 +38,31 @@ function lookForImg(inputString, li){
       image.width = "500";
       li.appendChild(image);
       inputString.replace(tokens[i], "");
-    }
-      
+    }   
   }
+}
+
+function search(event){
   
 }
 
 function main() {
   var list = document.getElementById("newsOutput");
-  fetch("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=4000&count=3&maxlength=500&format=json").then(function (response) {
+  var elementsInList = 0;
+  fetch("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=4000&count=3&maxlength=200&format=json").then(function (response) {
     response.json().then(function (r) {
-      console.log(r);
       arrOfContent = r.appnews.newsitems;
       for (var i = 0; i < arrOfContent.length; i++) {
-        addToList(arrOfContent[i], list);
+        addToList(arrOfContent[i], list, elementsInList);
+        elementsInList++;
       }
     })
-  })
-  // console.log(list);
+  });
+ 
+  var searchButton = document.getElementById("submitButton");
+  searchButton.addEventListener("click", function(event){
+    search(event);
+  });
 
 }
 main();
