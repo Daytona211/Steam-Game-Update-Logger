@@ -7,22 +7,18 @@ function addToList(item, list) {
   li.id = "ListItem" + (list.childNodes.length - 3);
   var p = document.createElement("p");
   var but = document.createElement("button");
-  but.style.width = "115px";
-  but.style.height = "30px";
   but.addEventListener("click", function (e) {
     spoilerClicked(e);
   });
-      //console.log(r.appnews);
-      var date = new Date(item.date * 1000);
-      but.textContent = date.toDateString();
-      
-      // but.value = but.item.date * 1000;
+  var date = new Date(item.date * 1000);
+  but.textContent = date.toDateString();
   li.appendChild(but);
   lookForImg(item.contents, li);
   p.innerHTML = (item.contents);
-  console.log(p);
   li.appendChild(p);
-  console.log(li);
+  for (var i = 1; i < li.childNodes.length; i++) { // collapse all info
+    li.childNodes[i].style.display = "none";
+  }
   list.appendChild(li);
 }
 
@@ -65,7 +61,7 @@ function lookForImg(inputString, li) {
  */
 function search(event) {
   var appID = document.getElementById("textBoxGameSearch").value;
-  var fetchRequest = "http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=" + appID + "&count=1000&maxlength=5000&format=json";
+  var fetchRequest = "http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=" + appID + "&count=2&maxlength=2000&format=json";
   return fetchRequest;
 }
 
@@ -74,6 +70,7 @@ function search(event) {
  * @param fetchRequest 
  */
 function callAPI(fetchRequest, list) {
+  emptyList(list);
   fetch(fetchRequest).then(function (response) {
     if (response.status == 403) {
       alert("403 ERROR - GAME NOT FOUND\nTry checking your input");
@@ -88,6 +85,16 @@ function callAPI(fetchRequest, list) {
       }
     })
   });
+}
+
+/**
+ * emptyList - emptis the given list of it's contents
+ * @param list - the list to be emptied
+ */
+function emptyList(list){
+  console.log(list.childNodes);
+  for(var i = 1; i < list.childNodes.length; i++)
+    list.innerHTML = '';
 }
 
 function main() {
