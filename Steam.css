@@ -1,3 +1,10 @@
 #textBoxGameSearch{
     width: 210px;
 }
+
+button {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap; 
+}
