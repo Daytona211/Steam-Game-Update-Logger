@@ -37,14 +37,14 @@ function spoilerClicked(event) {
   }
 }
 
-function removeLinks(li){
+function removeLinks(li) {
   var content = li.textContent.split(' ');
-  for(var i = 0; i < content.length; i++){
-    if(content[i].includes(".jpg") || content[i].includes(".png")){
+  for (var i = 0; i < content.length; i++) {
+    if (content[i].includes(".jpg") || content[i].includes(".png")) {
       li.textContent = (li.textContent.replace(content[i], ""));
     }
   }
-  
+
 }
 
 /**
@@ -102,8 +102,8 @@ function callAPI(fetchRequest, list) {
  * emptyList - emptis the given list of it's contents
  * @param list - the list to be emptied
  */
-function emptyList(list){
-  for(var i = 1; i < list.childNodes.length; i++)
+function emptyList(list) {
+  for (var i = 1; i < list.childNodes.length; i++)
     list.innerHTML = '';
 }
 
