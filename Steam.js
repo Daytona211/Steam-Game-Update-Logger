@@ -15,6 +15,7 @@ function addToList(item, list) {
   li.appendChild(but);
   lookForImg(item.contents, li);
   p.innerHTML = (item.contents);
+  removeLinks(p);
   li.appendChild(p);
   for (var i = 1; i < li.childNodes.length; i++) { // collapse all info
     li.childNodes[i].style.display = "none";
@@ -34,6 +35,16 @@ function spoilerClicked(event) {
     else
       listOfElements[i].style.display = "block";
   }
+}
+
+function removeLinks(li){
+  var content = li.textContent.split(' ');
+  for(var i = 0; i < content.length; i++){
+    if(content[i].includes(".jpg") || content[i].includes(".png")){
+      li.textContent = (li.textContent.replace(content[i], ""));
+    }
+  }
+  
 }
 
 /**
@@ -61,7 +72,7 @@ function lookForImg(inputString, li) {
  */
 function search(event) {
   var appID = document.getElementById("textBoxGameSearch").value;
-  var fetchRequest = "http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=" + appID + "&count=2&maxlength=2000&format=json";
+  var fetchRequest = "http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=" + appID + "&count=100&maxlength=999999&format=json";
   return fetchRequest;
 }
 
@@ -92,7 +103,6 @@ function callAPI(fetchRequest, list) {
  * @param list - the list to be emptied
  */
 function emptyList(list){
-  console.log(list.childNodes);
   for(var i = 1; i < list.childNodes.length; i++)
     list.innerHTML = '';
 }

@@ -1,5 +1,8 @@
 #textBoxGameSearch{
-    width: 210px;
+     width: 120px;
+    text-align: center; 
+    position: relative;
+    left: 20px;
 }
 
 #submitButton{
@@ -9,25 +12,20 @@
     text-overflow: clip;
     white-space: nowrap; 
     width: 100px;
-    height: 1px;
+    height: 35px;
+    position: relative;
+    left: 20px;
     /* */
     background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
     box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);    
 }
 
 button {
-    color: white;   
-    text-align: center;
-    overflow: hidden;
-    text-overflow: clip;
-    white-space: nowrap; 
-    width: 140px;
-    height: 30px;
-    /* */
-    border-radius: 25px;
-    padding: 20px;   
-    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
-    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);    
+    font-family: "Verdana", sans-serif;
+    font-weight: bold;
+    background-color: #3678f4;
+    width: 200px;  
+ 
 }
 
 body {
@@ -39,5 +37,5 @@ body {
   }
 
   ul{
-      
+      list-style: none;
   }
